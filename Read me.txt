@@ -1,0 +1,29 @@
+
+This is a data collection and relay project, where accelerometer data is collected from sensor device and delivered to a local computer through a central coordinator node. The devices used are FLEX boards and the software is written and compiled on Elipse IDE with RT-druid plugins and ERIKA enterprise source code integrated and loaded on the boards using MPLAB.
+
+
+
+The folder contains two folders, the description of the main functions in the files is given below.
+
+1. central coordinator node code is found in ‘projIeee802154coord’ -> ‘code.c’
+
+ This will be loaded on a single node that will collect the measurement data from remote sensor nodes and feed this data to a workstation for storage or processing. 
+
+	main() function - set clock parameters, initialise basic components and console, initialise IEEE 802.15.4 communication (these initialisation procedures are found in the example demo files for erica enterprise). the rx_data() function is set as the function to be called when data is received through the 802.15.4 channel.
+
+	rx_data() - this function simply activates the received data parsing routine.
+
+	TASK(CHAT_RECIEVE) - parses the received packet and extracts the accelerometer measurement information from the received packet. When completed it activated a routine to reply to the node that sent the data.
+
+	TASK(CHAT_SEND) - simply acknowledges packet reception to the sending sensor device.
+
+
+2. remote sensing node code is found in ‘projIeee802154dev’ -> ‘code.c’
+
+	main () function - set clock parameters, initialise components(less, lcd, buttons, accelerometer), sets   the rx_data() function as a callback function when dat is received through the 802.15.4 channel and also sets a timer alarm to activate data sending routine.
+
+	rx_data() - this function simply activates the received data parsing routine.
+
+	TASK(CHAT_RECIEVE) - parses the received packet and extracts id numbers acknowledging packets received correctly.
+
+	TASK(CHAT_SEND) - this task is activated periodically to send accelerometer data to the coordinator node using the 802.15.4 channel.
