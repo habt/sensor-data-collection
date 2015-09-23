@@ -185,16 +185,7 @@ TASK(CHAT_SEND)
 
 	x_acc_int = x_level;
 
-	/*EE_lcd_putc('X');
-	EE_lcd_putc('=');
-	if(x_level<0) {
-		EE_lcd_putc('-');
-		x_acc_int=-x_acc_int;}
-	else EE_lcd_putc('+');
-	EE_lcd_putc(((x_acc_int%1000)/100)+'0');
-	EE_lcd_putc('.');
-	EE_lcd_putc(((x_acc_int%100)/10)+'0');
-	EE_lcd_putc((x_acc_int%10)+'0');*/
+	
 	packet[10] = x_acc_int >> 24;
 	packet[11] = x_acc_int >> 16;
 	packet[12] = x_acc_int >> 8;
@@ -203,18 +194,7 @@ TASK(CHAT_SEND)
 	y_level = EE_accelerometer_gety()*100;
 
 	y_acc_int = y_level;
-	//EE_lcd_home();
-	/*EE_lcd_goto( 9, 0 );
-	EE_lcd_putc('Y');
-	EE_lcd_putc('=');
-	if(y_level<0) {
-		EE_lcd_putc('-');
-		y_acc_int=-y_acc_int;}
-	else EE_lcd_putc('+');
-	EE_lcd_putc(((y_acc_int%1000)/100)+'0');
-	EE_lcd_putc('.');
-	EE_lcd_putc(((y_acc_int%100)/10)+'0');
-	EE_lcd_putc((y_acc_int%10)+'0');*/
+	
 		packet[14] = y_acc_int >> 24;
 		packet[15] = y_acc_int >> 16;
 		packet[16] = y_acc_int >> 8;
@@ -223,19 +203,7 @@ TASK(CHAT_SEND)
 		z_level = EE_accelerometer_getz()*100;
 
 		z_acc_int = z_level;
-		//EE_lcd_home();
-		/*EE_lcd_line2();
-		EE_lcd_putc('Z');
-		EE_lcd_putc('=');
-		if(z_level<0) {
-			EE_lcd_putc('-');
-			z_acc_int=-z_acc_int;}
-		else EE_lcd_putc('+');
-		EE_lcd_putc(((z_acc_int%1000)/100)+'0');
-		EE_lcd_putc('.');
-		EE_lcd_putc(((z_acc_int%100)/10)+'0');
-		EE_lcd_putc((z_acc_int%10)+'0');
-		EE_lcd_home();*/
+		
 		packet[18] = z_acc_int >> 24;
 		packet[19] = z_acc_int >> 16;
 		packet[20] = z_acc_int >> 8;
@@ -243,23 +211,7 @@ TASK(CHAT_SEND)
 
 	sprintf(str, "X=%d Y=%d\nZ=%d \r\n",x_acc_int,y_acc_int,z_acc_int);
 	lcd_puts(str);
-	/*x_level = EE_accelerometer_getx()*100;
-	packet[10] = (*x_acc_int) >> 24;
-	packet[11] = (*x_acc_int) >> 16;
-	packet[12] = (*x_acc_int) >> 8;
-	packet[13] = (*x_acc_int) & 0x000000FF;
-
-	y_level = EE_accelerometer_gety()*100;
-	packet[14] = (*y_acc_int) >> 24;
-	packet[15] = (*y_acc_int) >> 16;
-	packet[16] = (*y_acc_int) >> 8;
-	packet[17] = (*y_acc_int) & 0x000000FF;
-
-	z_level = EE_accelerometer_getz()*100;
-	packet[18] = (*z_acc_int) >> 24;
-	packet[19] = (*z_acc_int) >> 16;
-	packet[20] = (*z_acc_int) >> 8;
-	packet[21] = (*z_acc_int) & 0x000000FF;*/
+	
 
 	//** end of accelerometer part **//
 
